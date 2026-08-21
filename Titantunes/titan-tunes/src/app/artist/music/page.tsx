@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import {
-  getAllChansons,
+  getChansonsByArtiste,
   getAlbumsByArtiste,
   publierChanson,
   createAlbum,
@@ -403,14 +403,16 @@ export default function ArtistMusicPage() {
     setLoading(true);
     setError(null);
     try {
-      const [allChansons, myAlbums] = await Promise.all([
-        getAllChansons(),
-        user?.id ? getAlbumsByArtiste(user.id) : Promise.resolve([]),
+      if (!user?.id) {
+        setChansons([]);
+        setAlbums([]);
+        return;
+      }
+      const [myChansons, myAlbums] = await Promise.all([
+        getChansonsByArtiste(user.id),
+        getAlbumsByArtiste(user.id),
       ]);
-      const myChansons = user?.id
-        ? allChansons.filter((c) => c.artisteId === user.id)
-        : allChansons;
-      setChansons(myChansons.length > 0 ? myChansons : allChansons);
+      setChansons(myChansons);
       setAlbums(myAlbums);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur de chargement.");

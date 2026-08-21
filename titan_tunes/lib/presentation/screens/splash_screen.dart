@@ -2,7 +2,7 @@
 import 'package:titan_tunes/core/app_theme.dart';
 import 'package:titan_tunes/presentation/screens/onboarding_screen.dart';
 
-/// Splash — fond blanc/noir pur, logo centré, "Powered by Nitch-Corp" en bas
+/// Splash — fond blanc/noir pur, éléments centrés
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -52,11 +52,16 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: bg,
       body: SafeArea(
-        child: Stack(
-          children: [
-            // ── Logo parfaitement centré sur l'écran ────────────────────────
-            Center(
-              child: FadeTransition(
+        child: SizedBox.expand(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Espaceur supérieur équilibré
+              const Spacer(flex: 3),
+
+              // ── Logo animé centré ─────────────────────────────────────────
+              FadeTransition(
                 opacity: _fade,
                 child: ScaleTransition(
                   scale: _scale,
@@ -71,24 +76,25 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
               ),
-            ),
 
-            // ── Footer positionné en bas et centré horizontalement ─────────
-            Positioned(
-              bottom: 32,
-              left: 0,
-              right: 0,
-              child: Text(
-                'Powered by Nitch-Corp',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isDark ? Colors.white38 : Colors.black38,
-                  letterSpacing: 0.5,
+              // Espaceur inférieur équilibré
+              const Spacer(flex: 2),
+
+              // ── Footer centré ─────────────────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Text(
+                  'Powered by Nitch-Corp',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? Colors.white38 : Colors.black38,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

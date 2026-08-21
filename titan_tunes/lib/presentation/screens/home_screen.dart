@@ -87,13 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               CustomBottomNavBar(
                 currentIndex: _index,
-                onTap: (i) async {
-                  if (i == 4 && !auth.isLoggedIn) {
-                    await Navigator.of(context).pushNamed('/login');
-                    if (!mounted) return;
-                    if (auth.isLoggedIn) setState(() => _index = 4);
-                    return;
-                  }
+                onTap: (i) {
                   setState(() => _index = i);
                 },
               ),

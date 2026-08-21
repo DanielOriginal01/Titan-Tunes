@@ -22,6 +22,7 @@ const endpoints = {
   chansons: {
     list:              `${API_BASE}/chansons`,
     byId:              (id: number) => `${API_BASE}/chansons/${id}`,
+    byArtiste:         (artisteId: number) => `${API_BASE}/chansons/artiste/${artisteId}`,
     publier:           `${API_BASE}/chansons/publier`,
     stream:            (id: number) => `${API_BASE}/chansons/${id}/stream`,
     recherche:         `${API_BASE}/chansons/recherche`,

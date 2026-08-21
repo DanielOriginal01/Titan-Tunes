@@ -125,6 +125,17 @@ export async function getAllChansons(page = 0, size = 100): Promise<ChansonRespo
   }
 }
 
+export async function getChansonsByArtiste(artisteId: number, page = 0, size = 100): Promise<ChansonResponse[]> {
+  try {
+    const res = await api.get<PageResponse<ChansonResponse> | ChansonResponse[]>(endpoints.chansons.byArtiste(artisteId), {
+      params: { page, size, sort: "id,desc" },
+    });
+    return extractContent(res);
+  } catch {
+    return [];
+  }
+}
+
 export async function getChansonById(id: number): Promise<ChansonResponse> {
   return api.get<ChansonResponse>(endpoints.chansons.byId(id));
 }

@@ -10,13 +10,18 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // 1. Initialiser directement l'état depuis localStorage ou les préférences système côté client
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window === "undefined") return "light";
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useLayoutEffect(() => {
     const storedTheme = window.localStorage.getItem("titan_theme");
-    if (storedTheme === "light" || storedTheme === "dark") return storedTheme;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  });
+    let initial: "light" | "dark" = "light";
+    if (storedTheme === "light" || storedTheme === "dark") {
+      initial = storedTheme;
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      initial = "dark";
+    }
+    setTheme(initial);
+  }, []);
 
   // 2. Écouter les changements de préférences système et synchroniser le DOM
   useLayoutEffect(() => {

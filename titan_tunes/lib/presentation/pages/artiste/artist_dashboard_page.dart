@@ -31,6 +31,7 @@ class _ArtistDashboardPageState extends State<ArtistDashboardPage> {
     artisteProv.loadReversements(artistId);
     artisteProv.loadCategories();
     artisteProv.loadAlbums(artistId);
+    artisteProv.loadChansons(artistId);
   }
 
   void _openPublishModal() {
@@ -447,6 +448,128 @@ class _ArtistDashboardPageState extends State<ArtistDashboardPage> {
                       },
                     ),
                   ),
+                const SizedBox(height: 24),
+
+                // ── Section Mes Chansons ─────────────────────────────────────
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Mes Chansons (${artisteProv.chansons.length})',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+
+                if (artisteProv.isLoadingChansons)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                else if (artisteProv.chansons.isEmpty)
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: isDark ? AppColors.cardDark : AppColors.cardLight,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Icon(Icons.music_note_outlined,
+                              size: 36, color: theme.hintColor),
+                          const SizedBox(height: 6),
+                          Text(
+                            'Aucune chanson publiée pour le moment.',
+                            style: TextStyle(color: theme.hintColor),
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            onPressed: _openPublishModal,
+                            child: const Text('Publier votre premier titre'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  ...artisteProv.chansons.map((ch) => Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? AppColors.cardDark
+                              : AppColors.cardLight,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: AppColors.divider.withAlpha(80),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: primaryColor.withAlpha(25),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ch.coverUrl.isNotEmpty
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        ch.coverUrl,
+                                        width: 44,
+                                        height: 44,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (ctx, err, st) =>
+                                            Icon(Icons.music_note_rounded,
+                                                color: primaryColor, size: 22),
+                                      ),
+                                    )
+                                  : Icon(Icons.music_note_rounded,
+                                      color: primaryColor, size: 22),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    ch.title,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 13,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    '${ch.duration.inMinutes}:${(ch.duration.inSeconds % 60).toString().padLeft(2, '0')}',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: theme.hintColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              '${ch.popularity} écoutes',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: theme.hintColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                 const SizedBox(height: 24),
 
                 // ── Historique des reversements ─────────────────────────────

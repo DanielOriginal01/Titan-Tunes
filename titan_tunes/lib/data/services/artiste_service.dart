@@ -5,6 +5,7 @@ import 'package:titan_tunes/data/models/album.dart';
 import 'package:titan_tunes/data/models/api_response.dart';
 import 'package:titan_tunes/data/models/artiste_dashboard.dart';
 import 'package:titan_tunes/data/models/categorie.dart';
+import 'package:titan_tunes/data/models/chanson.dart';
 import 'package:titan_tunes/data/models/reversement.dart';
 import 'package:titan_tunes/network/network_api_client.dart';
 
@@ -17,6 +18,7 @@ abstract class ArtisteService {
   });
   Future<List<Categorie>> getCategories();
   Future<List<Album>> getAlbumsByArtiste(String artisteId);
+  Future<List<Chanson>> getChansonsByArtiste(String artisteId);
   Future<String?> creerAlbum({
     required String title,
     DateTime? dateSortie,
@@ -144,6 +146,28 @@ class RemoteArtisteService implements ArtisteService {
           .toList();
     } catch (e) {
       debugPrint('RemoteArtisteService.getAlbumsByArtiste error: $e');
+      return [];
+    }
+  }
+
+  @override
+  Future<List<Chanson>> getChansonsByArtiste(String artisteId) async {
+    try {
+      final response = await _client.get('/chansons/artiste/$artisteId');
+      final body = _parseBody(response.data);
+      final rawData = body['data'];
+      List items = [];
+      if (rawData is Map && rawData['content'] is List) {
+        items = rawData['content'] as List;
+      } else if (rawData is List) {
+        items = rawData;
+      }
+
+      return items
+          .map((e) => Chanson.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList();
+    } catch (e) {
+      debugPrint('RemoteArtisteService.getChansonsByArtiste error: $e');
       return [];
     }
   }
@@ -433,6 +457,12 @@ class MockArtisteService implements ArtisteService {
   Future<List<Album>> getAlbumsByArtiste(String artisteId) async {
     await Future.delayed(const Duration(milliseconds: 200));
     return List.unmodifiable(_mockAlbums);
+  }
+
+  @override
+  Future<List<Chanson>> getChansonsByArtiste(String artisteId) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    return [];
   }
 
   @override

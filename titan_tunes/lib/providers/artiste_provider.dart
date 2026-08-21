@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:titan_tunes/data/models/album.dart';
 import 'package:titan_tunes/data/models/artiste_dashboard.dart';
 import 'package:titan_tunes/data/models/categorie.dart';
+import 'package:titan_tunes/data/models/chanson.dart';
 import 'package:titan_tunes/data/models/reversement.dart';
 import 'package:titan_tunes/data/services/artiste_service.dart';
 
@@ -13,9 +14,11 @@ class ArtisteProvider extends ChangeNotifier {
   List<Reversement> _reversements = [];
   List<Categorie> _categories = [];
   List<Album> _albums = [];
+  List<Chanson> _chansons = [];
   bool _isLoadingStats = false;
   bool _isLoadingReversements = false;
   bool _isLoadingAlbums = false;
+  bool _isLoadingChansons = false;
   bool _isPublishing = false;
   bool _isCreatingAlbum = false;
   String? _publishError;
@@ -27,9 +30,11 @@ class ArtisteProvider extends ChangeNotifier {
   List<Reversement> get reversements => List.unmodifiable(_reversements);
   List<Categorie> get categories => List.unmodifiable(_categories);
   List<Album> get albums => List.unmodifiable(_albums);
+  List<Chanson> get chansons => List.unmodifiable(_chansons);
   bool get isLoadingStats => _isLoadingStats;
   bool get isLoadingReversements => _isLoadingReversements;
   bool get isLoadingAlbums => _isLoadingAlbums;
+  bool get isLoadingChansons => _isLoadingChansons;
   bool get isPublishing => _isPublishing;
   bool get isCreatingAlbum => _isCreatingAlbum;
   String? get publishError => _publishError;
@@ -83,6 +88,20 @@ class ArtisteProvider extends ChangeNotifier {
       debugPrint('ArtisteProvider.loadAlbums error: $e');
     } finally {
       _isLoadingAlbums = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadChansons(String artisteId) async {
+    _isLoadingChansons = true;
+    notifyListeners();
+
+    try {
+      _chansons = await _service.getChansonsByArtiste(artisteId);
+    } catch (e) {
+      debugPrint('ArtisteProvider.loadChansons error: $e');
+    } finally {
+      _isLoadingChansons = false;
       notifyListeners();
     }
   }
