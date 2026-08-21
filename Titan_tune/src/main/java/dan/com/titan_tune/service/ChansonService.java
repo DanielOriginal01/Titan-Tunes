@@ -22,5 +22,6 @@ public interface ChansonService {
     List<ChansonResponse> getTopTendances();
     PageResponse<ChansonResponse> getTopTendances(Pageable pageable);
     PageResponse<ChansonResponse> getAllChansons(Pageable pageable);
+    PageResponse<ChansonResponse> getChansonsByArtiste(Long artisteId, Pageable pageable);
     void supprimerChanson(Long idChanson);
 }

@@ -303,6 +303,13 @@ public class ChansonServiceImpl implements ChansonService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public PageResponse<ChansonResponse> getChansonsByArtiste(Long artisteId, Pageable pageable) {
+        Page<Chansons> page = chansonRepository.findByArtisteId(artisteId, pageable);
+        return PageResponse.from(page, ChansonResponse::fromEntity);
+    }
+
+    @Override
     @Transactional
     public void supprimerChanson(Long idChanson) {
         var chanson = chansonRepository.findById(idChanson)

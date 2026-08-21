@@ -13,16 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-/**
- * Configuration OpenAPI / Swagger UI pour Titan Tunes.
- *
- * ─ Déclare le schéma de sécurité JWT Bearer (cadenas 🔒 sur chaque endpoint)
- * ─ Pour utiliser Swagger UI :
- *   1. Appelez POST /api/v1/auth/login pour obtenir votre token JWT
- *   2. Cliquez sur le bouton "Authorize" en haut de Swagger UI
- *   3. Saisissez : Bearer <votre_token>
- *   4. Tous les endpoints protégés seront déverrouillés
- */
+
 @Configuration
 public class OpenApiConfig {
 

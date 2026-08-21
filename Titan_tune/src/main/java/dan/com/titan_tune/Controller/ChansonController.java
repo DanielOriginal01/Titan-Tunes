@@ -50,6 +50,16 @@ public class ChansonController {
         ));
     }
 
+    @GetMapping(value = "/artiste/{artisteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<PageResponse<ChansonResponse>>> getChansonsByArtiste(
+            @PathVariable Long artisteId,
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(
+                "Chansons de l'artiste récupérées.",
+                chansonService.getChansonsByArtiste(artisteId, pageable)
+        ));
+    }
+
     @GetMapping(value = "/recherche", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<PageResponse<ChansonResponse>>> rechercherChansons(
             @RequestParam("query") String query,
