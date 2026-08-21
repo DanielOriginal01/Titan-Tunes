@@ -1,0 +1,19 @@
+:root {
+  --color-primary: #1E51A4;
+  --color-primary-soft: #e7eeff;
+  --color-accent: #FF9800;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-border: #d1d5db;
+}
+
+.dark {
+  --color-surface: #0f172a;
+  --color-surface-muted: #111827;
+  --color-border: #334155;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}

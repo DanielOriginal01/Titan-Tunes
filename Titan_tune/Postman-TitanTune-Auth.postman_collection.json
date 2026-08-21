@@ -1,0 +1,1596 @@
+{
+  "info": {
+    "name": "Titan Tune API - Complete",
+    "description": "Complete Postman collection for Titan Tune REST API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.1.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "identifier",
+      "value": "johndoe"
+    },
+    {
+      "key": "email",
+      "value": "johndoe@example.com"
+    },
+    {
+      "key": "password",
+      "value": "Password123!"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "auditeurId",
+      "value": "1"
+    },
+    {
+      "key": "artisteId",
+      "value": "1"
+    },
+    {
+      "key": "albumId",
+      "value": "1"
+    },
+    {
+      "key": "chansonId",
+      "value": "1"
+    },
+    {
+      "key": "playlistId",
+      "value": "1"
+    },
+    {
+      "key": "abonnementId",
+      "value": "1"
+    },
+    {
+      "key": "evenementId",
+      "value": "1"
+    },
+    {
+      "key": "notificationId",
+      "value": "1"
+    },
+    {
+      "key": "categorieId",
+      "value": "1"
+    },
+    {
+      "key": "telechargementId",
+      "value": "1"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "status",
+      "value": "ACTIF"
+    },
+    {
+      "key": "query",
+      "value": "love"
+    },
+    {
+      "key": "type",
+      "value": "SONG"
+    },
+    {
+      "key": "modePaiement",
+      "value": "FLOOZ"
+    },
+    {
+      "key": "idempotencyKey",
+      "value": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    {
+      "key": "audioFilePath",
+      "value": "{{filePath}}"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{identifier}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"telephone\": \"0600000000\",\n  \"role\": \"ROLE_AUDITEUR\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"{{identifier}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Email Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/verify-request",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify-request"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/verify?token={{token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{token}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chansons",
+      "item": [
+        {
+          "name": "Publier Chanson",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "type": "text",
+                  "value": "{\"titre\":\"Mon titre\",\"duree\":210,\"parole\":\"Paroles de chanson\",\"artisteId\":{{artisteId}},\"categorieId\":{{categorieId}},\"albumId\":{{albumId}}}"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "{{audioFilePath}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/publier",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "publier"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Chansons",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Chanson By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Streaming URL",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/{{chansonId}}/stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "{{chansonId}}",
+                "stream"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Rechercher Chansons",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/recherche?query={{query}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "recherche"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "{{query}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Top Tendances",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/tendances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "tendances"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Supprimer Chanson",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/chansons/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "chansons",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Albums",
+      "item": [
+        {
+          "name": "Create Album",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nouvel Album\",\n  \"dateSortie\": \"2026-08-12\",\n  \"coverImage\": \"https://example.com/cover.jpg\",\n  \"artisteId\": {{artisteId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/albums",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "albums"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Album By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/albums/{{albumId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "albums",
+                "{{albumId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Albums By Artiste",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/albums/artiste/{{artisteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "albums",
+                "artiste",
+                "{{artisteId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Album",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/albums/{{albumId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "albums",
+                "{{albumId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Abonnements",
+      "item": [
+        {
+          "name": "Get All Abonnements",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/abonnements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "abonnements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Abonnement By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/abonnements/{{abonnementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "abonnements",
+                "{{abonnementId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Abonnements By Auditeur",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/abonnements/auditeur/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "abonnements",
+                "auditeur",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Abonnement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offerCode\": \"STANDARD\",\n  \"mobileMoneyRef\": \"MM123456\",\n  \"active\": true,\n  \"auditeur\": {\"id\": {{auditeurId}}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/abonnements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "abonnements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Abonnement",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/abonnements/{{abonnementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "abonnements",
+                "{{abonnementId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Verifier Artiste",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/artistes/{{artisteId}}/verifier",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "artistes",
+                "{{artisteId}}",
+                "verifier"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Change User Status",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/utilisateurs/{{userId}}/statut?status={{status}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "utilisateurs",
+                "{{userId}}",
+                "statut"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{status}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories/{{categorieId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "{{categorieId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Pop\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories/{{categorieId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "{{categorieId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ecoutes",
+      "item": [
+        {
+          "name": "Enregistrer Ecoute",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"auditeurId\": {{auditeurId}},\n  \"chansonId\": {{chansonId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ecoutes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ecoutes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Enregistrer Ecoute Async",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"auditeurId\": {{auditeurId}},\n  \"chansonId\": {{chansonId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ecoutes/async",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ecoutes",
+                "async"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Historique Auditeur",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ecoutes/historique/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ecoutes",
+                "historique",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evenements",
+      "item": [
+        {
+          "name": "Get All Evenements",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/evenements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "evenements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Evenement By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/evenements/{{evenementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "evenements",
+                "{{evenementId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Evenement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nameConcert\": \"Concert Test\",\n  \"dateEvenement\": \"2026-09-01T20:00:00\",\n  \"dateLimite\": \"2026-08-30T23:59:59\",\n  \"lieu\": \"Salle de concert\",\n  \"prixTicket\": 2500.0,\n  \"artiste\": {\"id\": {{artisteId}}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/evenements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "evenements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Evenement",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/evenements/{{evenementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "evenements",
+                "{{evenementId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Favoris",
+      "item": [
+        {
+          "name": "Ajouter Favori",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{auditeurId}},\n  \"targetId\": {{chansonId}},\n  \"type\": \"{{type}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/favoris",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "favoris"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Retirer Favori",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/favoris/user/{{userId}}/target/{{chansonId}}?type={{type}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "favoris",
+                "user",
+                "{{userId}}",
+                "target",
+                "{{chansonId}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "{{type}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Favoris By User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/favoris/user/{{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "favoris",
+                "user",
+                "{{userId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Labels",
+      "item": [
+        {
+          "name": "Get All Labels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/labels",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "labels"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Label By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/labels/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "labels",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Label",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Indie\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/labels",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "labels"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Label",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/labels/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "labels",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get All Notifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notifications By Auditeur",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/notifications/auditeur/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notifications",
+                "auditeur",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titre\": \"Nouvelle alerte\",\n  \"message\": \"Votre playlist a été mise à jour.\",\n  \"auditeur\": {\"id\": {{auditeurId}}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark Notification As Read",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/notifications/{{notificationId}}/lire",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notifications",
+                "{{notificationId}}",
+                "lire"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/notifications/{{notificationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notifications",
+                "{{notificationId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Paiements",
+      "item": [
+        {
+          "name": "Effectuer Paiement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"montant\": 4500.0,\n  \"modePaiement\": \"{{modePaiement}}\",\n  \"auditeurId\": {{auditeurId}},\n  \"abonnementId\": {{abonnementId}},\n  \"idempotencyKey\": \"{{idempotencyKey}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/paiements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "paiements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Paiement Historique",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/paiements/auditeur/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "paiements",
+                "auditeur",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Playlists",
+      "item": [
+        {
+          "name": "Create Playlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Playlist du soir\",\n  \"description\": \"Mes chansons favorites\",\n  \"privee\": false,\n  \"auditeurId\": {{auditeurId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ajouter Chanson à Playlist",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists/{{playlistId}}/chansons/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "{{playlistId}}",
+                "chansons",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Retirer Chanson de Playlist",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists/{{playlistId}}/chansons/{{chansonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "{{playlistId}}",
+                "chansons",
+                "{{chansonId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Playlist By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists/{{playlistId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "{{playlistId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Playlists By Auditeur",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists/auditeur/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "auditeur",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Playlist",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/playlists/{{playlistId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "playlists",
+                "{{playlistId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Telechargements",
+      "item": [
+        {
+          "name": "Get All Telechargements",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/telechargements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "telechargements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Telechargements By Auditeur",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/telechargements/auditeur/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "telechargements",
+                "auditeur",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Telechargement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"TELECHARGE\",\n  \"auditeur\": {\"id\": {{auditeurId}}},\n  \"chanson\": {\"id\": {{chansonId}}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/telechargements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "telechargements"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Telechargement",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/telechargements/{{telechargementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "telechargements",
+                "{{telechargementId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Artistes",
+      "item": [
+        {
+          "name": "Get All Artistes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/artistes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "artistes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Artiste By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/artistes/{{artisteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "artistes",
+                "{{artisteId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Artiste",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"artistName\": \"Artiste Test\",\n  \"bio\": \"Biographie de l'artiste\",\n  \"photoCouverture\": \"https://example.com/photo.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/artistes/{{artisteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "artistes",
+                "{{artisteId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auditeurs",
+      "item": [
+        {
+          "name": "Get All Auditeurs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auditeurs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auditeurs"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Auditeur By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auditeurs/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auditeurs",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Auditeur",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"photoProfil\": \"https://example.com/profil.jpg\",\n  \"abonnementActif\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auditeurs/{{auditeurId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auditeurs",
+                "{{auditeurId}}"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

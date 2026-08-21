@@ -1,0 +1,7 @@
+*.zip
+
+# Environment files (secrets)
+.env
+*.env
+.env.*
+!.env.example

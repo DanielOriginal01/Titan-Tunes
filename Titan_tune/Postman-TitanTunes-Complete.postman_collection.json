@@ -1,0 +1,624 @@
+{
+  "info": {
+    "name": "Titan Tunes API — Tests Complets",
+    "description": "Collection de tests pour tous les endpoints de l'API Titan Tunes. Inclut les vérifications d'authentification, d'ownership et de rôles.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url",      "value": "http://localhost:8080/api/v1" },
+    { "key": "admin_token",   "value": "" },
+    { "key": "artiste_token", "value": "" },
+    { "key": "auditeur_token","value": "" },
+    { "key": "artiste_id",    "value": "" },
+    { "key": "auditeur_id",   "value": "" },
+    { "key": "chanson_id",    "value": "" },
+    { "key": "playlist_id",   "value": "" }
+  ],
+  "item": [
+
+    {
+      "name": "1. AUTHENTIFICATION",
+      "item": [
+        {
+          "name": "Login Admin",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Token présent', () => { const d = pm.response.json().data; pm.expect(d.token).to.be.a('string'); pm.collectionVariables.set('admin_token', d.token); pm.collectionVariables.set('auditeur_id', d.id); });",
+            "pm.test('Rôle ADMIN', () => pm.expect(pm.response.json().data.role).to.eql('ROLE_ADMIN'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\"emailOuUsername\": \"admin@titan.com\", \"password\": \"titansupadmin@2005\"}" }
+          }
+        },
+        {
+          "name": "Login Artiste (Kofi Mensah)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Token présent + stocké', () => { const d = pm.response.json().data; pm.expect(d.token).to.be.a('string'); pm.collectionVariables.set('artiste_token', d.token); pm.collectionVariables.set('artiste_id', d.id); });",
+            "pm.test('Rôle ARTISTE', () => pm.expect(pm.response.json().data.role).to.eql('ROLE_ARTISTE'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\"emailOuUsername\": \"kofi.mensah@music.tg\", \"password\": \"Artiste@2026!\"}" }
+          }
+        },
+        {
+          "name": "Login Auditeur (Amina)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Token présent + stocké', () => { const d = pm.response.json().data; pm.expect(d.token).to.be.a('string'); pm.collectionVariables.set('auditeur_token', d.token); pm.collectionVariables.set('auditeur_id', d.id); });",
+            "pm.test('Rôle AUDITEUR', () => pm.expect(pm.response.json().data.role).to.eql('ROLE_AUDITEUR'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\"emailOuUsername\": \"amina.koffi@gmail.com\", \"password\": \"Auditeur@2026!\"}" }
+          }
+        },
+        {
+          "name": "Inscription AUDITEUR",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201', () => pm.response.to.have.status(201));",
+            "pm.test('Inscription réussie', () => pm.expect(pm.response.json().success).to.be.true);"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/register",
+            "body": { "mode": "raw", "raw": "{\"username\": \"testuser99\", \"email\": \"testuser99@gmail.com\", \"password\": \"Test@12345\", \"telephone\": \"+22899000099\", \"role\": \"ROLE_AUDITEUR\"}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Inscription ADMIN doit être rejetée (400)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 — inscription admin interdite', () => pm.response.to.have.status(400));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/register",
+            "body": { "mode": "raw", "raw": "{\"username\": \"hackeradmin\", \"email\": \"hacker@evil.com\", \"password\": \"hacked123\", \"telephone\": \"+0000000\", \"role\": \"ROLE_ADMIN\"}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Login mauvais mot de passe (401)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 401 — mauvais credentials', () => pm.response.to.have.status(401));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\"emailOuUsername\": \"admin@titan.com\", \"password\": \"mauvaismdp\"}" }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "2. ROUTES PUBLIQUES (sans token)",
+      "item": [
+        {
+          "name": "GET Chansons — public",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200 sans token', () => pm.response.to.have.status(200));",
+            "pm.test('Liste non vide', () => pm.expect(pm.response.json().data).to.be.an('array').that.is.not.empty);",
+            "if (pm.response.json().data.length > 0) { pm.collectionVariables.set('chanson_id', pm.response.json().data[0].id); }"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/chansons" }
+        },
+        {
+          "name": "GET Tendances — public",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Chansons triées par écoutes', () => { const data = pm.response.json().data; pm.expect(data).to.be.an('array'); if (data.length > 1) { pm.expect(data[0].nbEcoutes).to.be.gte(data[1].nbEcoutes); } });"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/chansons/tendances" }
+        },
+        {
+          "name": "GET Recherche — public",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Résultats de recherche présents', () => { const data = pm.response.json().data; pm.expect(data).to.have.property('chansons'); pm.expect(data).to.have.property('artistes'); });"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/search?q=kofi" }
+        },
+        {
+          "name": "GET Artistes — public",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/artistes" }
+        },
+        {
+          "name": "GET Bannières actives — public",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/bannieres/actives" }
+        },
+        {
+          "name": "[SÉCURITÉ] GET Playlists sans token (401)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('401 sans token', () => pm.response.to.have.status(401));"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/playlists/auditeur/1" }
+        },
+        {
+          "name": "[SÉCURITÉ] GET Admin sans token (401)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('401 sans token', () => pm.response.to.have.status(401));"
+          ], "type": "text/javascript" }}],
+          "request": { "method": "GET", "url": "{{base_url}}/admin/utilisateurs" }
+        }
+      ]
+    },
+
+    {
+      "name": "3. ADMIN — Tableau de bord",
+      "item": [
+        {
+          "name": "GET Stats globales",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Stats présentes', () => { const d = pm.response.json().data; pm.expect(d).to.have.property('totalUtilisateurs'); pm.expect(d).to.have.property('totalArtistes'); });"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": "{{base_url}}/admin/dashboard/stats"
+          }
+        },
+        {
+          "name": "GET Finances",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Données financières', () => { const d = pm.response.json().data; pm.expect(d).to.have.property('totalRevenus'); });"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": "{{base_url}}/admin/dashboard/finances"
+          }
+        },
+        {
+          "name": "GET Artistes en attente",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Liste artistes non vérifiés', () => pm.expect(pm.response.json().data).to.be.an('array'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": "{{base_url}}/admin/artistes/en-attente"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Admin avec token ARTISTE (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — artiste ne peut pas accéder admin', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/admin/utilisateurs"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "4. ARTISTE — Espace artiste",
+      "item": [
+        {
+          "name": "GET Profil artiste connecté",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Données artiste', () => pm.expect(pm.response.json().data).to.have.property('artistName'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/artistes/{{artiste_id}}"
+          }
+        },
+        {
+          "name": "GET Dashboard artiste",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Stats dashboard', () => { const d = pm.response.json().data; pm.expect(d).to.have.property('totalEcoutes'); pm.expect(d).to.have.property('royaltiesEstimees'); });"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/artistes/{{artiste_id}}/dashboard"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Dashboard d'un AUTRE artiste (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — accès dashboard étranger refusé', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/artistes/9999/dashboard"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Modifier profil d'un AUTRE artiste (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — modification profil étranger refusée', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/artistes/9999",
+            "body": { "mode": "raw", "raw": "{\"bio\": \"J'essaie de modifier le profil d'un autre\"}" }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "5. CHANSONS",
+      "item": [
+        {
+          "name": "GET Chanson par ID",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Chanson trouvée', () => pm.expect(pm.response.json().data).to.have.property('titre'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/chansons/{{chanson_id}}"
+          }
+        },
+        {
+          "name": "GET URL Streaming (authentifié)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200 avec token', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/chansons/{{chanson_id}}/stream"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Streaming sans token (401)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('401 — streaming nécessite connexion', () => pm.response.to.have.status(401));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/chansons/{{chanson_id}}/stream"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Supprimer chanson d'un AUTRE artiste (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — suppression chanson étrangère refusée', () => { pm.expect([403, 404]).to.include(pm.response.code); });"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/chansons/9999"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "6. PLAYLISTS",
+      "item": [
+        {
+          "name": "GET Playlists publiques d'un auditeur",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/playlists/auditeur/{{auditeur_id}}"
+          }
+        },
+        {
+          "name": "POST Créer playlist",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201', () => pm.response.to.have.status(201));",
+            "pm.test('Playlist créée', () => { const d = pm.response.json().data; pm.expect(d).to.have.property('id'); pm.collectionVariables.set('playlist_id', d.id); });"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/playlists",
+            "body": { "mode": "raw", "raw": "{\"title\": \"Ma playlist test\", \"description\": \"Test\", \"privee\": false, \"auditeurId\": {{auditeur_id}}}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Créer playlist pour un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — création playlist pour autrui refusée', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/playlists",
+            "body": { "mode": "raw", "raw": "{\"title\": \"Attaque IDOR\", \"description\": \"Test IDOR\", \"privee\": false, \"auditeurId\": 9999}" }
+          }
+        },
+        {
+          "name": "POST Ajouter chanson à la playlist",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/playlists/{{playlist_id}}/chansons/{{chanson_id}}"
+          }
+        },
+        {
+          "name": "DELETE Supprimer playlist",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/playlists/{{playlist_id}}"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "7. ABONNEMENTS",
+      "item": [
+        {
+          "name": "POST Souscrire abonnement WEEKLY",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201', () => pm.response.to.have.status(201));",
+            "pm.test('Abonnement actif', () => pm.expect(pm.response.json().data.active).to.be.true);"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/abonnements/souscrire",
+            "body": { "mode": "raw", "raw": "{\"offre\": \"WEEKLY\", \"montantAbonnement\": 500, \"description\": \"WAVE-TEST-001\", \"auditeurId\": {{auditeur_id}}}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Souscrire pour un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — souscription pour autrui refusée', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/abonnements/souscrire",
+            "body": { "mode": "raw", "raw": "{\"offre\": \"MONTHLY\", \"montantAbonnement\": 2000, \"description\": \"ATTAQUE\", \"auditeurId\": 9999}" }
+          }
+        },
+        {
+          "name": "GET Abonnements de l'auditeur connecté",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/abonnements/auditeur/{{auditeur_id}}"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Abonnements d'un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — abonnements d\'autrui inaccessibles', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/abonnements/auditeur/9999"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "8. PAIEMENTS",
+      "item": [
+        {
+          "name": "POST Effectuer paiement",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201', () => pm.response.to.have.status(201));",
+            "pm.test('Statut SUCCES', () => pm.expect(pm.response.json().data.statut).to.eql('SUCCES'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/paiements",
+            "body": { "mode": "raw", "raw": "{\"montant\": 500.0, \"modePaiement\": \"WAVE\", \"auditeurId\": {{auditeur_id}}, \"idempotencyKey\": \"TEST-KEY-001\"}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Paiement pour un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — paiement pour autrui refusé', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/paiements",
+            "body": { "mode": "raw", "raw": "{\"montant\": 500.0, \"modePaiement\": \"WAVE\", \"auditeurId\": 9999, \"idempotencyKey\": \"ATTACK-001\"}" }
+          }
+        },
+        {
+          "name": "GET Historique paiements",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Liste paiements', () => pm.expect(pm.response.json().data).to.be.an('array'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/paiements/auditeur/{{auditeur_id}}"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Historique paiements d'un AUTRE (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — historique paiements étranger refusé', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/paiements/auditeur/9999"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "9. ÉCOUTES",
+      "item": [
+        {
+          "name": "POST Enregistrer écoute",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201', () => pm.response.to.have.status(201));",
+            "pm.test('Écoute enregistrée', () => pm.expect(pm.response.json().data).to.have.property('id'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ecoutes",
+            "body": { "mode": "raw", "raw": "{\"auditeurId\": {{auditeur_id}}, \"chansonId\": {{chanson_id}}, \"dureeEcoute\": 180}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Écoute pour un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — écoute au nom d\'autrui refusée', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ecoutes",
+            "body": { "mode": "raw", "raw": "{\"auditeurId\": 9999, \"chansonId\": {{chanson_id}}, \"dureeEcoute\": 180}" }
+          }
+        },
+        {
+          "name": "GET Historique écoutes",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/ecoutes/historique/{{auditeur_id}}"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "10. NOTIFICATIONS",
+      "item": [
+        {
+          "name": "GET Notifications de l'auditeur connecté",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));",
+            "pm.test('Liste notifications', () => pm.expect(pm.response.json().data).to.be.an('array'));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/notifications/auditeur/{{auditeur_id}}"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Notifications d'un AUTRE auditeur (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — notifications d\'autrui inaccessibles', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{auditeur_token}}" }],
+            "url": "{{base_url}}/notifications/auditeur/9999"
+          }
+        },
+        {
+          "name": "POST Notif promo artiste (son propre ID)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 202', () => pm.response.to.have.status(202));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/notifications/promo/artiste/{{artiste_id}}",
+            "body": { "mode": "raw", "raw": "{\"titre\": \"Nouveau single !\", \"message\": \"Mon dernier single est disponible !\", \"typePromotion\": \"SINGLE\"}" }
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Notif promo au nom d'un AUTRE artiste (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — spam au nom d\'autrui refusé', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/notifications/promo/artiste/9999",
+            "body": { "mode": "raw", "raw": "{\"titre\": \"Fausse promo\", \"message\": \"Usurpation d'identité\", \"typePromotion\": \"ALBUM\"}" }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "11. REVERSEMENTS",
+      "item": [
+        {
+          "name": "GET Historique reversements (artiste connecté)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 200', () => pm.response.to.have.status(200));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/reversements/artiste/{{artiste_id}}"
+          }
+        },
+        {
+          "name": "[SÉCURITÉ] Reversements d'un AUTRE artiste (403)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('403 — reversements étranger inaccessibles', () => pm.response.to.have.status(403));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{artiste_token}}" }],
+            "url": "{{base_url}}/reversements/artiste/9999"
+          }
+        },
+        {
+          "name": "POST Calculer reversements mensuels (ADMIN)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 201 ou 400 (déjà calculé)', () => pm.expect([201, 400]).to.include(pm.response.code));"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": "{{base_url}}/reversements/calculer/mensuel"
+          }
+        }
+      ]
+    }
+
+  ]
+}

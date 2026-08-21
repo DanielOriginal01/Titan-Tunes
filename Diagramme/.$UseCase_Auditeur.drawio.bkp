@@ -1,0 +1,31 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="FbgzgWQfCK02WjfHYICF">
+    <mxGraphModel dx="1503" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Se connecter" vertex="1">
+          <mxGeometry height="70" width="140" x="660" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="80" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-3" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Découvrir" vertex="1">
+          <mxGeometry height="70" width="140" x="280" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Rechercher" vertex="1">
+          <mxGeometry height="70" width="140" x="274" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-5" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="S&#39;abonner" vertex="1">
+          <mxGeometry height="70" width="140" x="280" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Ajouté en favoris" vertex="1">
+          <mxGeometry height="70" width="140" x="280" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="v1zQMdG5yixbQHwIQ-tg-7" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Télécharger" vertex="1">
+          <mxGeometry height="70" width="140" x="280" y="770" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

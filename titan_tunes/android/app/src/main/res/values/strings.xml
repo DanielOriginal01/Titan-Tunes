@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Titan Tunes</string>
+    <!-- Google OAuth2 — Web Client ID depuis Google Cloud Console -->
+    <string name="default_web_client_id">585521708825-ot2rl5l53i3itc6leicqikrbinkuq9kv.apps.googleusercontent.com</string>
+</resources>

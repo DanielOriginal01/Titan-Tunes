@@ -1,0 +1,101 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="t3jYq6DMu6gijQMB4aex">
+    <mxGraphModel dx="1414" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="&amp;lt;&amp;lt;Control&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry height="760" width="100" x="450" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-13" parent="ZlrrvmBJZ2HEy9pdybSD-3" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="40" width="10" x="45" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-14" edge="1" parent="ZlrrvmBJZ2HEy9pdybSD-3" source="ZlrrvmBJZ2HEy9pdybSD-3" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;exitX=0.5;exitY=0.443;exitDx=0;exitDy=0;exitPerimeter=0;" target="ZlrrvmBJZ2HEy9pdybSD-13" value="Vérification de l&#39;abonnement">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="45" y="337" />
+              <mxPoint x="45" y="340" />
+              <mxPoint x="80" y="340" />
+              <mxPoint x="80" y="360" />
+            </Array>
+            <mxPoint x="45" y="240" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-19" parent="ZlrrvmBJZ2HEy9pdybSD-3" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="40" width="10" x="45" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="&amp;lt;&amp;lt;Entity&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry height="760" width="100" x="600" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-17" parent="ZlrrvmBJZ2HEy9pdybSD-4" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="40" width="10" x="45" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="&amp;lt;&amp;lt;Boundary&amp;gt;&amp;gt;&lt;div&gt;Page de lecture&lt;/div&gt;" vertex="1">
+          <mxGeometry height="760" width="100" x="290" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-21" parent="ZlrrvmBJZ2HEy9pdybSD-5" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="45" width="10" x="45" y="465" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-6" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Auditeur" vertex="1">
+          <mxGeometry height="60" width="30" x="130" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-7" edge="1" parent="1" source="ZlrrvmBJZ2HEy9pdybSD-6" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;rounded=0;endArrow=none;endFill=0;dashed=1;" value="">
+          <mxGeometry relative="1" width="100" as="geometry">
+            <Array as="points" />
+            <mxPoint x="160" y="300" as="sourcePoint" />
+            <mxPoint x="150" y="882" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-8" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="Demande de téléchargement">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points" />
+            <mxPoint x="140" y="460" as="sourcePoint" />
+            <mxPoint x="499.5" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-9" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;swimlaneFillColor=default;" value="Ref" vertex="1">
+          <mxGeometry height="70" width="600" x="130" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Se connecter" vertex="1">
+          <mxGeometry height="30" width="80" x="390" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-16" edge="1" parent="1" source="ZlrrvmBJZ2HEy9pdybSD-13" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" target="ZlrrvmBJZ2HEy9pdybSD-4" value="Requête de télécharchement">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="510" />
+            </Array>
+            <mxPoint x="510" y="450" as="sourcePoint" />
+            <mxPoint x="590" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-18" edge="1" parent="1" source="ZlrrvmBJZ2HEy9pdybSD-17" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" target="ZlrrvmBJZ2HEy9pdybSD-3" value="Reponse de la requête">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="550" />
+            </Array>
+            <mxPoint x="650" y="470" as="sourcePoint" />
+            <mxPoint x="570" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-20" edge="1" parent="1" source="ZlrrvmBJZ2HEy9pdybSD-19" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" target="ZlrrvmBJZ2HEy9pdybSD-5" value="Envoie du fichier audio">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="650" as="sourcePoint" />
+            <mxPoint x="340" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-22" edge="1" parent="1" source="ZlrrvmBJZ2HEy9pdybSD-21" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" value="Lancment du téléchargement">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="650" as="sourcePoint" />
+            <mxPoint x="150" y="625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-23" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;swimlaneFillColor=default;" value="frame" vertex="1">
+          <mxGeometry height="60" width="600" x="130" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ZlrrvmBJZ2HEy9pdybSD-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Rechercher" vertex="1">
+          <mxGeometry height="30" width="60" x="400" y="330" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

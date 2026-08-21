@@ -1,0 +1,46 @@
+<mxfile host="Electron">
+  <diagram name="Deploiement Titan Tunes" id="QF7R4EzZDSOr1SWSWO8F">
+    <mxGraphModel dx="1414" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-27" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=50;fillColor=#f5f5f5;" value="&lt;b&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Serveur Docker" vertex="1">
+          <mxGeometry height="420" width="320" x="370" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-28" parent="cY8b9n0bEvHPAryhU8dO-27" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" value="&lt;b&gt;&amp;lt;&amp;lt;&lt;/b&gt;process&lt;b&gt;&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Spring Boot" vertex="1">
+          <mxGeometry height="60" width="200" x="50" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-30" parent="cY8b9n0bEvHPAryhU8dO-27" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;" value="&lt;b&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;MinIO" vertex="1">
+          <mxGeometry height="60" width="200" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-29" parent="cY8b9n0bEvHPAryhU8dO-27" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" value="&lt;b&gt;&amp;lt;&amp;lt;DATABASE &amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;PostgreSQL" vertex="1">
+          <mxGeometry height="60" width="200" x="120" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-37" edge="1" parent="cY8b9n0bEvHPAryhU8dO-27" source="cY8b9n0bEvHPAryhU8dO-28" target="cY8b9n0bEvHPAryhU8dO-29" value="&lt;&lt;JDBC&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" value="&lt;b&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Smartphone Auditeur" vertex="1">
+          <mxGeometry height="100" width="160" x="120" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-32" parent="cY8b9n0bEvHPAryhU8dO-31" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;" value="&lt;b&gt;&amp;lt;&amp;lt;&lt;/b&gt;process&lt;b&gt;&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;App Flutter" vertex="1">
+          <mxGeometry height="40" width="120" x="20" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-33" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;" value="&lt;b&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Poste Utilisateur" vertex="1">
+          <mxGeometry height="100" width="160" x="120" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-35" edge="1" parent="1" source="cY8b9n0bEvHPAryhU8dO-32" target="cY8b9n0bEvHPAryhU8dO-28" value="&lt;&lt;HTTPS/REST&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-36" edge="1" parent="1" source="cY8b9n0bEvHPAryhU8dO-34" target="cY8b9n0bEvHPAryhU8dO-28" value="&lt;&lt;HTTPS/REST&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-38" edge="1" parent="1" source="cY8b9n0bEvHPAryhU8dO-28" target="cY8b9n0bEvHPAryhU8dO-30" value="&lt;&lt;S3&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cY8b9n0bEvHPAryhU8dO-34" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;" value="&lt;b&gt;&amp;lt;&amp;lt;&lt;/b&gt;process&lt;b&gt;&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Frontend Next.js" vertex="1">
+          <mxGeometry height="40" width="120" x="140" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: titan-tune
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/titan_tune_db}
+    username: ${DB_USERNAME:titan_admin}
+    password: ${DB_PASSWORD:Titan@tunes2026}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:25}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE:false}
+    from: ${MAIL_FROM:no-reply@titan-tune.com}
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  url: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:Titan@tunes2026}
+  bucket: ${MINIO_BUCKET:audio-bucket}
+  bucket-name: ${MINIO_BUCKET:audio-bucket}
+
+jwt:
+  secret: ${JWT_SECRET:change-me-please-very-long-secret-key-for-titan-tune}
+  expiration: ${JWT_EXPIRATION:3600000} # 1 heure
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 jours
+
+# ── OAuth2 Google ─────────────────────────────────────────────────────────────
+oauth2:
+  google:
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
+    token-info-url: https://oauth2.googleapis.com/tokeninfo
+    userinfo-url: https://www.googleapis.com/oauth2/v3/userinfo
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:titan_tune;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  sql:
+    init:
+      mode: never
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  url: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:Titan@tunes2026}
+  bucket: ${MINIO_BUCKET:audio-bucket}
+  bucket-name: ${MINIO_BUCKET:audio-bucket}
+
+jwt:
+  secret: ${JWT_SECRET:change-me-please-very-long-secret-key-for-titan-tunes}
+  expiration: ${JWT_EXPIRATION:3600000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
